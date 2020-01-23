@@ -1,4 +1,4 @@
-module C/branches/basic-oauth-go/src
+module github.com/mikemenaker/basic-oauth-go
 
 go 1.13
 
