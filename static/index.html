@@ -1,0 +1,24 @@
+<html>
+  <body>
+    <div id="content"></div>
+
+    <script type="text/javascript" src="https://codebarbarian-images.s3.amazonaws.com/open.dist.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+      // Step 1: open an OAuth dialog
+      oauthOpen('http://localhost:3030/static/dialog.html', async (err, code) => {
+
+        // Step 2: exchange the code for an access token
+        const resToken = await axios.post('http://localhost:3030/token', { code: code.code });
+
+        // Step 3: use the access token to make a request to a secure
+        // endpoint and display some data
+        const res = await axios.get('http://localhost:3030/secure', {
+          headers: { authorization: resToken.data['access_token'] }
+        });
+
+        document.querySelector('#content').innerHTML = JSON.stringify(res.data);
+      });
+    </script>
+  </body>
+</html>
